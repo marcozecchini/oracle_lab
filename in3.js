@@ -24,8 +24,5 @@ const web3 = new Web3(in3.createWeb3Provider());
 
     const block = await web3.eth.getBlock('latest')
     console.log("Block : ", block)
-
-    var contract = new web3.eth.Contract(Box["abi"], address);
-    contract.methods.retrieve().call().then(console.log)
     
 })().catch(console.error);
