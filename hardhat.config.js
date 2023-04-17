@@ -1,6 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require('@nomiclabs/hardhat-ethers');
-const { infuraApiKey, rpcMumbai, mnemonic } = require('./secrets.json');
+const { infuraApiKey, mnemonic } = require('./secrets.json');
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -19,19 +19,11 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
-  networks: {
-         mumbai: {
-           url: `https://rpc-mumbai.maticvigil.com/v1/${rpcMumbai}`,
-           accounts: { mnemonic: mnemonic },
-      },
-      kovan: {
-        url: `https://kovan.infura.io/v3/${infuraApiKey}`,
-        accounts: { mnemonic: mnemonic },
-    },
-    goerli: {
-        url: `https://goerli.infura.io/v3/${infuraApiKey}`,
-        accounts: { mnemonic: mnemonic },
-    },
+  solidity: "0.8.18",
+  networks : {
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${infuraApiKey}`,
+      accounts: {mnemonic: mnemonic},
+    }
   },
 };

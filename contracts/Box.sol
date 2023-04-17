@@ -7,17 +7,17 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 // Make Box inherit from the Ownable contract
 contract Box is Ownable {
-    uint256 private _value;
+    uint256 private __value;
 
     event ValueChanged(uint256 value);
 
     // The onlyOwner modifier restricts who can call the store function
     function store(uint256 value) public onlyOwner {
-        _value = value;
+        __value = value;
         emit ValueChanged(value);
     }
 
     function retrieve() public view returns (uint256) {
-        return _value;
+        return __value;
     }
 }

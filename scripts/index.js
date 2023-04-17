@@ -1,26 +1,32 @@
-// scripts/deploy.js
+// scripts/index.js
+var APIConsumer;
+
 async function main () {
+    
+    // Retrieve accounts from the local node
+    const accounts = await ethers.provider.listAccounts();
+    
+    // Set up an ethers contract, representing our deployed Box instance
+    const address = '0x43AFcC3fa59395aEb80476c0238F39f79D26Bb5f';
+    APIConsumer = await ethers.getContractFactory('APIConsumer');
+    const api = await APIConsumer.attach(address);
 
-  // Retrieve accounts from the local node
-    const accounts = await ethers.getSigners();
-    console.log(accounts[0].address)
+    // Send a transaction to store() a new value in the Box
+    let tx = await api.requestVolumeData();
+    console.log(tx.hash);
+    await tx.wait();
 
-    // We get the contract to deploy
-    const Contract = await ethers.getContractFactory('APIConsumer');
-    let contract = await Contract.attach('0xC40f066EdB2ee3f8de715a9dA82421dFBa45Ab67')
-    console.log('Contract deployed to:', contract.address);
+    console.log("request sent");
 
-    // Send a transaction to mint an NFT
-    let tx = await contract.requestVolumeData();
-    let receipt = await tx.wait();  
+    setTimeout(async () => {  console.log(await api.volume()); }, 30000);
 
-    let volume = await contract.volume();
-    console.log("Retrived volume:", volume.toString())
   }
 
-  main()
-    .then(() => process.exit(0))
-    .catch(error => {
-      console.error(error);
-      process.exit(1);
-    });
+
+
+main()
+  .then(() => {})
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
